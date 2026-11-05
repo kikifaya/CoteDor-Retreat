@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Côte d'Or Retreat | Luxury Boutique Hotel on Praslin</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top site-nav " id="siteNav">
+        <div class="container-fluid px-3 px-lg-5">
+            <a class="navbar-brand brand" href="index.html">
+                Côte d'Or
+                <span>Retreat &middot; Praslin</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-lines"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav nav-left">
+                    <li class="nav-item">
+                        <a class="nav-link" href="rooms.php">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="experiences.html">Experiences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav nav-right align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Log in</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-lux btn-nav" href="booking.php">Book now</a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block ms-lg-3">
+                        <button type="button" class="menu-btn" onclick="openMenu()">
+                            Menu <span class="menu-lines"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-bg" id="menuBg"></div>
+        <div class="menu-shade"></div>
+
+        <button type="button" class="menu-close" onclick="closeMenu()">Close <span>&times;</span></button>
+
+        <ul class="menu-links">
+            <li><a href="index.html" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
+            <li><a href="rooms.php" data-image="room-double.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Rooms</a></li>
+            <li><a href="experiences.html" data-image="spa.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Experiences</a></li>
+            <li><a href="booking.php" data-image="pool.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Book a stay</a></li>
+            <li><a href="contact.html" data-image="beach.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Contact</a></li>
+        </ul>
+
+        <div class="menu-info">
+            <span>Anse Volbert, Praslin, Seychelles</span>
+            <span>+248 4 000 000</span>
+            <span>stay@cotedorretreat.com</span>
+        </div>
+    </div>
+
+    <header class="hero" id="home">
+        <img class="hero-poster" src="images/hero.jpg" alt="">
+        <video autoplay muted loop playsinline poster="images/hero.jpg">
+            <source src="video/hero.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-content">
+            <p class="eyebrow">Anse Volbert &middot; Praslin &middot; Seychelles</p>
+            <h1 class="hero-title">A window to <em>paradise</em></h1>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="rooms.php" class="btn btn-lux-light">Discover the rooms</a>
+                <a href="booking.php" class="btn btn-lux">Book your stay</a>
+            </div>
+        </div>
+
+        <a href="#story" class="scroll-cue">Scroll</a>
+    </header>
+
+    <section class="intro-dark" id="story">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-12 col-lg-5">
+                    <p class="eyebrow">Since 2025</p>
+                    <p class="intro-text">
+                        A family-run retreat on the island of Praslin, a two-minute walk from the soft
+                        white sand of Côte d'Or Beach. Twenty-two rooms and apartments, a quiet pool,
+                        Creole cooking and the slow rhythm of island life.
+                    </p>
+
+                    <div class="intro-stats">
+                        <div><strong>22</strong><span>Rooms &amp; suites</span></div>
+                        <div><strong>150 m</strong><span>To the beach</span></div>
+                        <div><strong>6 km</strong><span>Vallée de Mai</span></div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div class="collage">
+                        <div class="photo photo-1"><img src="images/intro-1.jpg" alt="A guest relaxing on the terrace among palm trees"></div>
+                        <div class="photo photo-2"><img src="images/intro-2.jpg" alt="Waves breaking on the shore seen from above"></div>
+                        <div class="photo photo-3"><img src="images/intro-3.jpg" alt="Palm trees by the sea"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="strip">
+        <div class="strip-photos">
+            <div class="photo"><img src="images/strip-1.jpg" alt="Granite rocks on a Praslin beach"></div>
+            <div class="photo"><img src="images/strip-2.jpg" alt="Tropical breakfast with fresh fruit"></div>
+            <div class="photo"><img src="images/strip-3.jpg" alt="Turquoise bay with white sand"></div>
+            <div class="photo"><img src="images/strip-4.jpg" alt="A swimming pool lined with palm trees"></div>
+        </div>
+        <h2 class="strip-title">An island<br>escape</h2>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-end mb-5">
+                <div class="col-12 col-lg-7">
+                    <p class="eyebrow">Stay</p>
+                    <h2 class="section-title">Rooms made for <em>slow</em> days</h2>
+                </div>
+                <div class="col-12 col-lg-5 text-lg-end">
+                    <a href="rooms.php" class="btn btn-lux-outline">View all rooms</a>
+                </div>
+            </div>
+
+            <div class="row g-4 g-lg-5">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card room-card h-100">
+                        <div class="photo">
+                            <img src="images/room-double.jpg" alt="Double Room">
+                        </div>
+                        <div class="card-body">
+                            <p class="room-meta">60 m² &middot; Up to 2 guests</p>
+                            <h3 class="card-title">Double Room</h3>
+                            <p class="tagline">Slow mornings, a hammock and the sound of the sea.</p>
+                            <p class="room-price">From $313 <small class="text-muted">/ night</small></p>
+                            <a href="rooms.php#room-1" class="stretched-link" aria-label="View Double Room"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card room-card h-100">
+                        <div class="photo">
+                            <img src="images/room-selfcatering.jpg" alt="Double Room Self-Catering">
+                        </div>
+                        <div class="card-body">
+                            <p class="room-meta">75 m² &middot; Up to 2 guests</p>
+                            <h3 class="card-title">Double Room Self-Catering</h3>
+                            <p class="tagline">Your own kitchen, island produce and a deep bathtub.</p>
+                            <p class="room-price">From $315 <small class="text-muted">/ night</small></p>
+                            <a href="rooms.php#room-2" class="stretched-link" aria-label="View Double Room Self-Catering"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card room-card h-100">
+                        <div class="photo">
+                            <img src="images/room-apartment.jpg" alt="Two-Bedroom Apartment">
+                        </div>
+                        <div class="card-body">
+                            <p class="room-meta">130 m² &middot; Up to 4 guests</p>
+                            <h3 class="card-title">Two-Bedroom Apartment</h3>
+                            <p class="tagline">Room for the whole family, steps from the beach.</p>
+                            <p class="room-price">From $411 <small class="text-muted">/ night</small></p>
+                            <a href="rooms.php#room-3" class="stretched-link" aria-label="View Two-Bedroom Apartment"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-banner" style="background-image: url('images/spa.jpg');">
+        <div class="container">
+            <p class="eyebrow">Wellness</p>
+            <h2>The spa</h2>
+            <p class="mb-4">Massages with coconut oil and island herbs, in a quiet garden pavilion. Time slows down here.</p>
+            <a href="experiences.html#spa" class="btn btn-lux-light">Explore</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-12 col-lg-5">
+                    <p class="eyebrow">Dining</p>
+                    <h2 class="section-title">Creole flavours, <em>island</em> evenings</h2>
+                    <p class="lead-text">
+                        Our restaurant cooks with the catch of the day, fresh fruit and spices from Praslin's
+                        gardens, alongside international favourites. End the day at the bar with a cocktail
+                        as the sun sets over the bay.
+                    </p>
+                    <a href="experiences.html#dining" class="btn btn-lux-outline mt-3">Explore dining</a>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="row g-3 magazine">
+                        <div class="col-7">
+                            <div class="photo photo-tall"><img src="images/restaurant.jpg" alt="Dinner table set by the sea"></div>
+                            <p class="caption">Grilled fish, fresh from the morning boats.</p>
+                        </div>
+                        <div class="col-5 pt-5">
+                            <div class="photo"><img src="images/story-1.jpg" alt="Cocktail at the bar"></div>
+                            <p class="caption">Sunset at the bar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="moments">
+        <div id="momentsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#momentsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#momentsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#momentsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#momentsCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="5000">
+                    <div class="photo"><img src="images/moment-1.jpg" alt="Morning swim in clear water"></div>
+                    <div class="carousel-caption">
+                        <p>Moments to share</p>
+                        <h5>Morning swims at Côte d'Or</h5>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <div class="photo"><img src="images/pool.jpg" alt="The hotel pool"></div>
+                    <div class="carousel-caption">
+                        <p>Moments to share</p>
+                        <h5>Long afternoons by the pool</h5>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <div class="photo"><img src="images/moment-2.jpg" alt="Giant palm forest"></div>
+                    <div class="carousel-caption">
+                        <p>Moments to share</p>
+                        <h5>Walks through the Vallée de Mai</h5>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <div class="photo"><img src="images/moment-3.jpg" alt="Sunset over the ocean"></div>
+                    <div class="carousel-caption">
+                        <p>Moments to share</p>
+                        <h5>Sunsets over the Indian Ocean</h5>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#momentsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#momentsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="section bg-sand">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-12 col-lg-6 order-lg-2">
+                    <p class="eyebrow">Location</p>
+                    <h2 class="section-title">Everything Praslin, <em>close by</em></h2>
+                    <ul class="distance-list mt-4">
+                        <li><strong>Côte d'Or Beach</strong><span>150 m</span></li>
+                        <li><strong>Praslin ferry jetty</strong><span>3 km</span></li>
+                        <li><strong>Vallée de Mai</strong><span>6 km</span></li>
+                        <li><strong>Anse Lazio</strong><span>7 km</span></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-6 order-lg-1">
+                    <p class="quote">&ldquo;The kind of place where the only plan is the tide.&rdquo;</p>
+                    <div class="photo mt-4" style="aspect-ratio: 16 / 11;"><img src="images/beach.jpg" alt="Côte d'Or Beach at Anse Volbert"></div>
+                    <p class="caption">Côte d'Or Beach, Anse Volbert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-band">
+        <div class="container">
+            <p class="eyebrow">Your stay</p>
+            <h2 class="section-title">Ready for the island?</h2>
+            <p class="mb-4">Choose your room, pick your dates and we'll take care of the rest.</p>
+            <a href="booking.php" class="btn btn-lux-light">Book now</a>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="newsletter">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-12 col-lg-5">
+                    <p class="eyebrow">Stay in touch</p>
+                    <h3 class="footer-title">Island news, seasonal offers and quiet escapes.</h3>
+
+                    <form class="newsletter-form mt-4" action="subscribe.php" method="POST">
+                        <input type="email" class="form-control" name="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-lux">Subscribe</button>
+                    </form>
+                </div>
+
+                <div class="col-6 col-lg-2 offset-lg-1">
+                    <h6 class="footer-heading">Explore</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.php">Rooms</a></li>
+                        <li><a href="experiences.html">Experiences</a></li>
+                        <li><a href="booking.php">Book a stay</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Guests</h6>
+                    <ul class="footer-links">
+                        <li><a href="login.php">Log in</a></li>
+                        <li><a href="register.php">Create account</a></li>
+                        <li><a href="my_bookings.php">My bookings</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <h6 class="footer-heading">Visit</h6>
+                    <p class="footer-text">
+                        Anse Volbert, Praslin<br>
+                        Seychelles<br>
+                        +248 4 000 000<br>
+                        stay@cotedorretreat.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Côte d'Or Retreat. All rights reserved.</span>
+                <span>Check-in 12:00 &middot; Check-out 10:00</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
