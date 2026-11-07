@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel policies | Côte d'Or Retreat</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top site-nav " id="siteNav">
+        <div class="container-fluid px-3 px-lg-5">
+            <a class="navbar-brand brand" href="index.php">
+                Côte d'Or
+                <span>Retreat &middot; Praslin</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-lines"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav nav-left">
+                    <li class="nav-item">
+                        <a class="nav-link" href="rooms.php">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="experiences.html">Experiences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav nav-right align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Log in</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-lux btn-nav" href="booking.php">Book now</a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block ms-lg-3">
+                        <button type="button" class="menu-btn" onclick="openMenu()">
+                            Menu <span class="menu-lines"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-bg" id="menuBg"></div>
+        <div class="menu-shade"></div>
+
+        <button type="button" class="menu-close" onclick="closeMenu()">Close <span>&times;</span></button>
+
+        <ul class="menu-links">
+            <li><a href="index.php" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
+            <li><a href="rooms.php" data-image="room-double.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Rooms</a></li>
+            <li><a href="experiences.html" data-image="spa.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Experiences</a></li>
+            <li><a href="booking.php" data-image="pool.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Book a stay</a></li>
+            <li><a href="contact.html" data-image="beach.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Contact</a></li>
+        </ul>
+
+        <div class="menu-info">
+            <span>Anse Volbert, Praslin, Seychelles</span>
+            <span>+248 423 5100</span>
+            <span>cotedorretreat@seychelles.net</span>
+        </div>
+    </div>
+
+    <section class="page-hero" style="background-image: url('images/beach.jpg');">
+        <div class="container">
+            <p class="eyebrow">Good to know</p>
+            <h1>Hotel <em>policies</em></h1>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-12 col-lg-4">
+                    <div class="policy-intro">
+                    <p class="eyebrow">Before you arrive</p>
+                    <h2 class="section-title reveal-words">Everything you need, <em>simply put</em></h2>
+                    <p class="lead-text">If anything is unclear, call us on +248 423 5100, send a WhatsApp to +248 2537 688 or email cotedorretreat@seychelles.net.</p>
+                    <nav class="policy-links">
+                        <a href="#times">Check-in &amp; check-out</a>
+                        <a href="#cancellation">Cancellation</a>
+                        <a href="#rates">Rates &amp; taxes</a>
+                        <a href="#rooms">Rooms</a>
+                        <a href="#force-majeure">Force majeure</a>
+                    </nav>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7 offset-lg-1">
+                    <div class="policy-block reveal" id="times">
+                        <p class="eyebrow">01</p>
+                        <h3>Check-in &amp; check-out</h3>
+                        <ul class="distance-list">
+                            <li><strong>Check-in</strong><span>From 12:00 PM</span></li>
+                            <li><strong>Check-out</strong><span>By 10:00 AM</span></li>
+                            <li><strong>Late check-out</strong><span>Until 4:00 PM &middot; 50% charge</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-block reveal" id="cancellation">
+                        <p class="eyebrow">02</p>
+                        <h3>Cancellation</h3>
+                        <p>The charge depends on how long before your arrival date you cancel.</p>
+                        <div class="cancel-steps">
+                            <div>
+                                <span>30 days or more before arrival</span>
+                                <strong>No charge</strong>
+                            </div>
+                            <div>
+                                <span>15 to 29 days before arrival</span>
+                                <strong>50% of the stay</strong>
+                            </div>
+                            <div>
+                                <span>14 days or less before arrival</span>
+                                <strong>Full stay charged</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-block reveal" id="rates">
+                        <p class="eyebrow">03</p>
+                        <h3>Rates &amp; taxes</h3>
+                        <ul class="lux-list single">
+                            <li>All room rates are net and include government taxes.</li>
+                            <li>Rates do not include the Government Environment Levy of &euro;2 per person, per night. It is paid directly at the hotel.</li>
+                            <li>The hotel may adjust its rates if government taxes change.</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-block reveal" id="rooms">
+                        <p class="eyebrow">04</p>
+                        <h3>Rooms</h3>
+                        <ul class="lux-list single">
+                            <li>We have one accessible Double Room, available on request and subject to availability.</li>
+                            <li>Rooms are on the ground floor and the first floor.</li>
+                            <li>We can't guarantee a room's location, but you can ask for the ground or first floor when you book (in "Special requests"). We'll do our best, subject to availability.</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-block reveal" id="force-majeure">
+                        <p class="eyebrow">05</p>
+                        <h3>Force majeure</h3>
+                        <p class="mb-0">The hotel may cancel a booking, with written notice and without liability, because of events beyond its reasonable control, such as natural disasters, acts of government authorities or other emergencies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-band">
+        <div class="container">
+            <p class="eyebrow">Your stay</p>
+            <h2 class="section-title">Ready for the island?</h2>
+            <a href="booking.php" class="btn btn-lux-light">Book now</a>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="newsletter">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-12 col-lg-5">
+                    <p class="eyebrow">Stay in touch</p>
+                    <h3 class="footer-title">Island news, seasonal offers and quiet escapes.</h3>
+
+                    <form class="newsletter-form mt-4" action="subscribe.php" method="POST">
+                        <input type="email" class="form-control" name="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-lux">Subscribe</button>
+                    </form>
+                </div>
+
+                <div class="col-6 col-lg-2 offset-lg-1">
+                    <h6 class="footer-heading">Explore</h6>
+                    <ul class="footer-links">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="rooms.php">Rooms</a></li>
+                        <li><a href="experiences.html">Experiences</a></li>
+                        <li><a href="booking.php">Book a stay</a></li>
+                        <li><a href="policies.html">Hotel policies</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Guests</h6>
+                    <ul class="footer-links">
+                        <li><a href="login.php">Log in</a></li>
+                        <li><a href="register.php">Create account</a></li>
+                        <li><a href="my_bookings.php">My bookings</a></li>
+                        <li><a href="account.php">My account</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <h6 class="footer-heading">Visit</h6>
+                    <p class="footer-text">
+                        Anse Volbert, Praslin<br>
+                        Seychelles<br>
+                        +248 423 5100<br>
+                        WhatsApp +248 2537 688<br>
+                        cotedorretreat@seychelles.net
+                    </p>
+                    <ul class="footer-social">
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Côte d'Or Retreat. All rights reserved.</span>
+                <span>Check-in 12:00 &middot; Check-out 10:00</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

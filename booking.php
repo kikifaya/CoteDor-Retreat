@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $specialRequest = trim($_POST["special_request"]);
     $today = date("Y-m-d");
 
-    $roomStmt = $conn->prepare("SELECT room_name, price, max_guests FROM rooms WHERE id = ?");
+    $roomStmt = $conn->prepare("SELECT room_name, price, max_guests, total_rooms FROM rooms WHERE id = ?");
     $roomStmt->bind_param("i", $roomId);
     $roomStmt->execute();
     $room = $roomStmt->get_result()->fetch_assoc();
@@ -62,6 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!preg_match("/^[0-9+ ]{7,20}$/", $phone)) {
         $errorMessage = "Please enter a valid phone number.";
     } else {
+        $checkStmt = $conn->prepare("SELECT COUNT(*) AS taken FROM bookings WHERE room_id = ? AND status != 'Cancelled' AND check_in < ? AND check_out > ?");
+        $checkStmt->bind_param("iss", $roomId, $checkOut, $checkIn);
+        $checkStmt->execute();
+        $taken = $checkStmt->get_result()->fetch_assoc()["taken"];
+        $checkStmt->close();
+
+        if ($taken >= $room["total_rooms"]) {
+            $errorMessage = "Sorry, the " . $room["room_name"] . " is fully booked for those dates. Please choose other dates or another room.";
+        }
+    }
+
+    if ($room && $errorMessage == "") {
         $nights = (int) round((strtotime($checkOut) - strtotime($checkIn)) / 86400);
 
         if ($mealPlan == "Breakfast") {
@@ -79,10 +91,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("iississsd", $userId, $roomId, $checkIn, $checkOut, $guests, $mealPlan, $phone, $specialRequest, $totalPrice);
 
         if ($stmt->execute()) {
-            $successMessage = "Thank you! Your booking for the " . $room["room_name"] . " (" . $nights . " nights, $" . number_format($totalPrice, 2) . ") has been received. Its status is Pending until the hotel confirms it.";
-            $checkIn = "";
-            $checkOut = "";
-            $specialRequest = "";
+            $newBookingId = $stmt->insert_id;
+            $stmt->close();
+            $conn->close();
+            header("Location: booking_confirmation.php?id=" . $newBookingId);
+            exit();
         } else {
             $errorMessage = "Sorry, your booking could not be saved. Please try again.";
         }
@@ -91,7 +104,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$rooms = $conn->query("SELECT id, room_name, price, max_guests FROM rooms ORDER BY price ASC");
+$rooms = $conn->query("SELECT * FROM rooms ORDER BY price ASC");
+$roomList = [];
+
+if ($rooms && $rooms->num_rows > 0) {
+    while ($row = $rooms->fetch_assoc()) {
+        $roomList[] = $row;
+    }
+}
+
+$roomPhotos = [];
+$photoResult = $conn->query("SELECT * FROM room_photos ORDER BY room_id, id");
+
+if ($photoResult && $photoResult->num_rows > 0) {
+    while ($photo = $photoResult->fetch_assoc()) {
+        $roomPhotos[$photo["room_id"]][] = $photo;
+    }
+}
+
+$modalAction = "select";
 
 include "header.php";
 ?>
@@ -103,11 +134,79 @@ include "header.php";
         </div>
     </section>
 
+    <section class="section pb-0" id="chooseRoom">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 col-lg-8">
+                    <p class="eyebrow">Step 1</p>
+                    <h2 class="section-title reveal-words">Choose your <em>room</em></h2>
+                    <p class="lead-text mb-0">Compare the rooms below, then press "Select this room" and the booking form fills in for you.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <?php
+                if (count($roomList) > 0) {
+                    foreach ($roomList as $room) {
+                ?>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card room-card booking-room h-100 reveal" id="roomCard<?php echo $room["id"]; ?>">
+                            <div class="photo photo-open" data-bs-toggle="modal" data-bs-target="#roomModal<?php echo $room["id"]; ?>">
+                                <img src="images/<?php echo htmlspecialchars($room["image"]); ?>" alt="<?php echo htmlspecialchars($room["room_name"]); ?>">
+                                <?php if (isset($roomPhotos[$room["id"]])) { ?><span class="photo-count"><?php echo count($roomPhotos[$room["id"]]) + 1; ?> photos</span><?php } ?>
+                            </div>
+                            <div class="card-body">
+                                <p class="room-meta"><?php echo htmlspecialchars($room["size_m2"]); ?> m² &middot; Up to <?php echo htmlspecialchars($room["max_guests"]); ?> guests &middot; <?php echo htmlspecialchars($room["total_rooms"]); ?> rooms</p>
+                                <h3 class="card-title"><?php echo htmlspecialchars($room["room_name"]); ?></h3>
+                                <p class="tagline"><?php echo htmlspecialchars($room["tagline"]); ?></p>
+                                <button type="button" class="btn-link-lux mb-3" data-bs-toggle="modal" data-bs-target="#roomModal<?php echo $room["id"]; ?>">View photos &amp; details</button>
+                                <p class="room-description"><?php echo htmlspecialchars($room["description"]); ?></p>
+
+                                <p class="room-meta mb-2">In the room</p>
+                                <ul class="amenities">
+                                    <li>Air conditioning</li>
+                                    <li>Free Wi-Fi</li>
+                                    <li>Flat-screen TV</li>
+                                    <li>Mini fridge</li>
+                                    <li>Private terrace or balcony</li>
+                                    <?php if ($room["room_type"] != "Double") { ?>
+                                        <li>Kitchen</li>
+                                    <?php } ?>
+                                    <?php if ($room["room_type"] == "Apartment") { ?>
+                                        <li>Living and dining area</li>
+                                    <?php } ?>
+                                </ul>
+
+                                <div class="room-select">
+                                    <p class="room-price mb-0">$<?php echo number_format($room["price"], 0); ?> <small class="text-muted">/ night</small></p>
+                                    <button type="button" class="btn btn-sm btn-lux select-room-btn" onclick="selectRoom(<?php echo $room["id"]; ?>)">Select this room</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php include "room_modal.php"; ?>
+                <?php
+                    }
+                } else {
+                    echo '<div class="col-12"><div class="alert alert-info">No rooms found.</div></div>';
+                }
+                ?>
+            </div>
+        </div>
+    </section>
+
     <section class="section">
         <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <p class="eyebrow">Step 2</p>
+                    <h2 class="section-title reveal-words">Your <em>details</em></h2>
+                </div>
+            </div>
             <div class="row g-5">
                 <div class="col-12 col-lg-7">
-                    <div class="form-panel">
+                    <div class="form-panel" id="bookingPanel">
                         <div class="progress-label">
                             <span>Booking progress</span>
                             <span id="progressText">0%</span>
@@ -132,11 +231,9 @@ include "header.php";
                                 <select class="form-select" id="room_id" name="room_id" onchange="showRoomInfo()" required>
                                     <option value="" data-price="0" data-guests="0">Choose a room</option>
                                     <?php
-                                    if ($rooms && $rooms->num_rows > 0) {
-                                        while ($row = $rooms->fetch_assoc()) {
-                                            $selected = ($row["id"] == $roomId) ? "selected" : "";
-                                            echo '<option value="' . $row["id"] . '" data-price="' . $row["price"] . '" data-guests="' . $row["max_guests"] . '" ' . $selected . '>' . htmlspecialchars($row["room_name"]) . '</option>';
-                                        }
+                                    foreach ($roomList as $room) {
+                                        $selected = ($room["id"] == $roomId) ? "selected" : "";
+                                        echo '<option value="' . $room["id"] . '" data-price="' . $room["price"] . '" data-guests="' . $room["max_guests"] . '" ' . $selected . '>' . htmlspecialchars($room["room_name"]) . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -146,7 +243,7 @@ include "header.php";
                             <div class="row g-3 mb-3">
                                 <div class="col-12 col-md-6">
                                     <label for="check_in" class="form-label">Check-in</label>
-                                    <input type="date" class="form-control" id="check_in" name="check_in" min="<?php echo date("Y-m-d"); ?>" value="<?php echo htmlspecialchars($checkIn); ?>" onchange="calculateTotal()" required>
+                                    <input type="date" class="form-control" id="check_in" name="check_in" min="<?php echo date("Y-m-d"); ?>" value="<?php echo htmlspecialchars($checkIn); ?>" onchange="updateCheckoutMin(); calculateTotal()" required>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label for="check_out" class="form-label">Check-out</label>
@@ -197,7 +294,8 @@ include "header.php";
                         <div class="summary-row"><span>Room cost</span><span id="summaryRoomCost">$0.00</span></div>
                         <div class="summary-row"><span>Meals</span><span id="summaryMeals">-</span></div>
                         <div class="summary-total" id="summaryTotal">$0.00</div>
-                        <p class="small mt-2 mb-0">Breakfast $22 and half board $78 per person, per night. Check-in from 12:00, check-out by 10:00.</p>
+                        <p class="small mt-2 mb-0">Breakfast $22 and half board $78 per person, per night. Check-in from 12:00, check-out by 10:00. The Government Environment Levy (&euro;2 per person, per night) is paid at the hotel.</p>
+                        <p class="small mt-3 mb-0">By booking you agree to our <a href="policies.html" class="text-reset">hotel policies</a>, including the cancellation policy.</p>
                     </div>
                 </div>
             </div>

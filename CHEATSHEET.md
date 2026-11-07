@@ -2,11 +2,11 @@
 
 ## HTML or PHP?
 
-- **HTML pages** (`index.html`, `experiences.html`, `contact.html`) only show information, so they don't need PHP.
+- **HTML pages** (`experiences.html`, `contact.html`, `policies.html`) only show information, so they don't need PHP.
   They use HTML, CSS, Bootstrap and JavaScript. Their menu and footer are written into each page.
 - **PHP pages** are used only where the exam asks for server-side work:
   - processing forms: `contact.php`, `subscribe.php`, `register.php`, `login.php`, `booking.php`, admin forms
-  - reading from the database: `rooms.php`, `my_bookings.php`, admin pages
+  - reading from the database: `index.php` (the room cards), `rooms.php`, `my_bookings.php`, admin pages
   - login, sessions and protected pages: `login.php`, `logout.php`, `auth_check.php`, `admin_check.php`
 - Example of "HTML form processed using PHP": `contact.html` has `<form action="contact.php" method="POST">`.
   `contact.php` saves the message in the database and shows the success or error message
@@ -20,19 +20,26 @@ Use **Ctrl + F** in VS Code to find the words in quotes.
 |---|---|---|
 | Responsive navbar | `header.php` | `navbar navbar-expand-lg`, `navbar-toggler`, `collapse navbar-collapse` |
 | Containers and grid | every page | `container`, `row`, `col-12 col-md-6 col-lg-4` |
-| Cards | `index.html`, `rooms.php`, `my_bookings.php` | `card room-card`, `card booking-card` |
+| Cards | `index.php`, `rooms.php`, `booking.php`, `my_bookings.php` | `card room-card`, `card booking-card` |
 | Buttons | everywhere | `btn btn-lux`, `btn btn-lux-outline` |
 | Forms | `contact.html`, `booking.php`, `register.php`, `login.php`, `admin_rooms.php`, footer newsletter | `form-control`, `form-select`, `form-label` |
 | Alerts | every form page | `alert alert-success`, `alert alert-danger` |
-| Modals | `rooms.php` | `modal fade`, `data-bs-toggle="modal"` (click a room card) |
+| Modals | `room_modal.php` (used on `rooms.php` and `booking.php`) | `modal fade`, `data-bs-toggle="modal"` (click a room photo) |
 | Progress bars | `booking.php`, `admin_dashboard.php` | `progress`, `progress-bar` |
-| Image carousel | `index.html` | `carousel slide` ("Moments to share") |
+| Image carousel | `index.php` ("Moments to share") and the room photo gallery in `room_modal.php` | `carousel slide` |
 
 ## Task 2 – JavaScript (`js/script.js`)
 
 **Functions** (more than 2): `calculateTotal()`, `countNights()`, `getMealPrice()` (uses a **switch**),
 `showWelcome()` (uses **if / else if / else**), `validateBooking()`, `validateRegister()`, `validateContact()`,
 `openMenu()`, `closeMenu()`, `changeMenuBackground()`, `resetMenuBackground()`, `togglePassword()`, `updateProgress()`.
+
+**Scroll animations** (like Rosa Group), also in `script.js`:
+- `splitWords()` cuts a heading into words, and `revealOnScroll()` fades the words in one by one when the text comes on screen (`reveal-words` class). Cards and photos with the `reveal` class slide up.
+- `moveParallax()` moves every element that has a `data-speed="..."` attribute at its own speed while you scroll: the overlapping photos, the "An island escape" photos, the spa banner, the big "C" and "2025". A bigger number moves faster.
+- `spreadStack()` spreads the three stacked "Experiences" cards apart as they come on screen.
+- The places strip ("Praslin · Côte d'Or Beach · …") moves by itself with a CSS animation (`@keyframes marquee` in `style.css`).
+- All of this runs on the `scroll` event (`window.addEventListener("scroll", animateOnScroll)`).
 
 **Events:**
 
@@ -57,20 +64,43 @@ Use **Ctrl + F** in VS Code to find the words in quotes.
 | Forms processed with PHP | `contact.html` → `contact.php`; footer newsletter → `subscribe.php`; booking, register, login and admin pages use `if ($_SERVER["REQUEST_METHOD"] == "POST")` |
 | **GET** | `rooms.php` (`$_GET["type"]`, `$_GET["sort"]`), `booking.php?room_id=`, `admin_bookings.php?status=`, `admin_rooms.php?edit=`, messages like `login.php?message=registered` |
 | **POST** | every form that saves data |
-| include / require | `require "db_connect.php";`, `require "auth_check.php";`, `require "admin_check.php";`, `include "header.php";`, `include "footer.php";`, `include "admin_nav.php";` |
+| include / require | `include "room_modal.php";`, `require "db_connect.php";`, `require "auth_check.php";`, `require "admin_check.php";`, `include "header.php";`, `include "footer.php";`, `include "admin_nav.php";` |
 | Success and error messages | `$successMessage` / `$errorMessage` → `alert-success` / `alert-danger` |
 
 ## Task 4 – MySQL
 
-- Database **`hotel_db`** with 5 tables: `users`, `rooms`, `bookings`, `messages`, `subscribers`.
+- Database **`hotel_db`** with 6 tables: `users`, `rooms`, `room_photos`, `bookings`, `messages`, `subscribers`.
+- `room_photos` holds the extra gallery photos of each room (`room_id` links it to `rooms`). The pages read it with `SELECT * FROM room_photos` and group the photos by room.
 - Connection: `db_connect.php` → `new mysqli($host, $username, $password, $database)` and `connect_error`.
 - **Insert:** `INSERT INTO bookings` (booking.php), `INSERT INTO users` (register.php), `INSERT INTO messages` (contact.php), `INSERT INTO rooms` (admin_rooms.php), `INSERT INTO subscribers` (subscribe.php).
 - **Retrieve and display:** `SELECT * FROM rooms` (rooms.php), bookings with `JOIN` (my_bookings, admin_bookings), users, messages.
 - **Update / delete** (extra): confirm/cancel bookings, edit rooms, delete bookings, rooms and messages.
 - Every insert/update/delete uses **prepare → bind_param → execute** like in the notes.
   - `bind_param` letters: `s` = string, `i` = integer, `d` = decimal number.
+- `$conn->set_charset("utf8mb4");` in `db_connect.php` makes special characters like **ô** in Côte and **²** in m² show correctly.
 - `mysqli_report(MYSQLI_REPORT_OFF);` in `db_connect.php`: newer PHP stops the page with an error
   instead of returning false. This line makes the `if ($stmt->execute()) { ... } else { ... }` messages work like in the notes.
+
+## Extra features (good to mention in the demo)
+
+- **Availability check** (`booking.php`): before saving, PHP counts the bookings that overlap the chosen dates
+  (`SELECT COUNT(*) ... WHERE room_id = ? AND status != 'Cancelled' AND check_in < ? AND check_out > ?`).
+  If that number reaches the room's `total_rooms`, the guest gets "fully booked" instead of a booking.
+- **Check-out calendar:** `updateCheckoutMin()` in `script.js` (onchange on Check-in) stops guests picking a check-out date before the check-in date.
+- **Admin photo upload** (`admin_photos.php` and the room form in `admin_rooms.php`): the form has `enctype="multipart/form-data"` and an `<input type="file">`.
+  `upload_photo.php` (loaded with `require`) has the `uploadPhoto()` function: it reads `$_FILES`, checks the file is a JPG/PNG/WEBP photo (`getimagesize()`),
+  gives it a new name, and saves it in `images` with `move_uploaded_file()`. Then the file name is saved in the database (`INSERT INTO room_photos` / `UPDATE rooms`).
+  `previewPhoto()` in `script.js` (onchange) shows the photo before saving.
+- **My account** (`account.php`): the guest updates their details (`UPDATE users`) and changes their password.
+  The current password is checked with `password_verify()`, and the new one is saved with `password_hash()`. JS check: `validatePasswordChange()`.
+- **Booking thank-you page** (`booking_confirmation.php?id=…`): after a booking is saved, `booking.php` sends the guest there with
+  `header("Location: booking_confirmation.php?id=" . $newBookingId)`. Refreshing the page can't book twice. The page reads the booking with a `JOIN`
+  of `bookings`, `rooms` and `users`. Only that guest (or the admin) can open it.
+  - Booking reference: `bookingReference()` in `functions.php` (loaded with `require`) turns booking 3 into **CDR-2026-0003**.
+    It's shown on the thank-you page, in My bookings and on the admin pages.
+  - Countdown: `showCountdown()` in `script.js` uses `if / else if / else` to show "begins in 64 days", "tomorrow" or "today".
+  - Print or save as PDF: `onclick="window.print()"`. The `@media print` rules in `style.css` hide the menu, footer and buttons.
+- **Map** on `contact.html` (Google Maps `<iframe>`, needs internet) and Instagram / Facebook links in the footer.
 
 ## Task 5 – Login
 
@@ -84,7 +114,7 @@ Use **Ctrl + F** in VS Code to find the words in quotes.
 
 ## Demo order (about 5 minutes)
 
-1. Home (`index.html`): video, scroll (navbar turns solid), hover the **Menu** links, the carousel.
+1. Home (`index.php`): video, scroll (navbar turns solid), hover the **Menu** links, the carousel.
    Explain: HTML for pages that only show information, PHP only for server-side work.
 2. Rooms: filter buttons (look at the **URL** – that's GET), sort, open a room modal, "Book this room".
 3. Not logged in → sent to Log in (protected page).

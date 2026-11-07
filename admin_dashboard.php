@@ -2,6 +2,7 @@
 session_start();
 require "admin_check.php";
 require "db_connect.php";
+require "functions.php";
 
 $pageTitle = "Dashboard";
 $currentPage = "admin";
@@ -34,7 +35,7 @@ while ($row = $result->fetch_assoc()) {
 
 $roomShares = $conn->query("SELECT rooms.room_name, COUNT(bookings.id) AS total FROM rooms LEFT JOIN bookings ON bookings.room_id = rooms.id AND bookings.status != 'Cancelled' GROUP BY rooms.id, rooms.room_name ORDER BY total DESC");
 
-$latest = $conn->query("SELECT bookings.id, bookings.check_in, bookings.check_out, bookings.total_price, bookings.status, users.full_name, rooms.room_name FROM bookings JOIN users ON bookings.user_id = users.id JOIN rooms ON bookings.room_id = rooms.id ORDER BY bookings.created_at DESC LIMIT 5");
+$latest = $conn->query("SELECT bookings.id, bookings.created_at, bookings.check_in, bookings.check_out, bookings.total_price, bookings.status, users.full_name, rooms.room_name FROM bookings JOIN users ON bookings.user_id = users.id JOIN rooms ON bookings.room_id = rooms.id ORDER BY bookings.created_at DESC LIMIT 5");
 
 include "header.php";
 ?>
@@ -128,7 +129,7 @@ include "header.php";
                 <table class="table table-lux mb-0">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Ref.</th>
                             <th>Guest</th>
                             <th>Room</th>
                             <th>Dates</th>
@@ -141,7 +142,7 @@ include "header.php";
                         if ($latest->num_rows > 0) {
                             while ($row = $latest->fetch_assoc()) {
                                 echo "<tr>";
-                                echo "<td>" . $row["id"] . "</td>";
+                                echo "<td>" . bookingReference($row["id"], $row["created_at"]) . "</td>";
                                 echo "<td>" . htmlspecialchars($row["full_name"]) . "</td>";
                                 echo "<td>" . htmlspecialchars($row["room_name"]) . "</td>";
                                 echo "<td>" . date("d M", strtotime($row["check_in"])) . " - " . date("d M Y", strtotime($row["check_out"])) . "</td>";

@@ -57,7 +57,7 @@ include "header.php";
                             echo '<div class="alert alert-success">' . htmlspecialchars($successMessage) . '</div>';
                         ?>
                             <div class="d-flex flex-wrap gap-2 mt-4">
-                                <a href="index.html" class="btn btn-lux">Back to home</a>
+                                <a href="index.php" class="btn btn-lux">Back to home</a>
                                 <a href="contact.html" class="btn btn-lux-outline">Send another message</a>
                             </div>
                         <?php

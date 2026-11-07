@@ -27,6 +27,17 @@ if ($type != "") {
     $rooms = $conn->query($sql);
 }
 
+$roomPhotos = [];
+$photoResult = $conn->query("SELECT * FROM room_photos ORDER BY room_id, id");
+
+if ($photoResult && $photoResult->num_rows > 0) {
+    while ($photo = $photoResult->fetch_assoc()) {
+        $roomPhotos[$photo["room_id"]][] = $photo;
+    }
+}
+
+$modalAction = "book";
+
 include "header.php";
 ?>
 
@@ -71,63 +82,25 @@ include "header.php";
                         $roomId = $row["id"];
                 ?>
                     <div class="col-12 col-md-6 col-lg-4" id="room-<?php echo $roomId; ?>">
-                        <div class="card room-card h-100" data-bs-toggle="modal" data-bs-target="#roomModal<?php echo $roomId; ?>">
+                        <div class="card room-card h-100 reveal" data-bs-toggle="modal" data-bs-target="#roomModal<?php echo $roomId; ?>">
                             <div class="photo">
                                 <img src="images/<?php echo htmlspecialchars($row["image"]); ?>" alt="<?php echo htmlspecialchars($row["room_name"]); ?>">
+                                <?php if (isset($roomPhotos[$roomId])) { ?><span class="photo-count"><?php echo count($roomPhotos[$roomId]) + 1; ?> photos</span><?php } ?>
                             </div>
                             <div class="card-body">
                                 <p class="room-meta"><?php echo htmlspecialchars($row["size_m2"]); ?> m² &middot; Up to <?php echo htmlspecialchars($row["max_guests"]); ?> guests</p>
                                 <h3 class="card-title"><?php echo htmlspecialchars($row["room_name"]); ?></h3>
                                 <p class="tagline"><?php echo htmlspecialchars($row["tagline"]); ?></p>
                                 <p class="room-price mb-3">From $<?php echo number_format($row["price"], 0); ?> <small class="text-muted">/ night</small></p>
-                                <button type="button" class="btn btn-lux-outline">View details</button>
+                                <button type="button" class="btn btn-lux-outline">Photos &amp; details</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal fade" id="roomModal<?php echo $roomId; ?>" tabindex="-1" aria-labelledby="roomModalLabel<?php echo $roomId; ?>" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="roomModalLabel<?php echo $roomId; ?>"><?php echo htmlspecialchars($row["room_name"]); ?></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="photo mb-4">
-                                        <img src="images/<?php echo htmlspecialchars($row["image"]); ?>" alt="<?php echo htmlspecialchars($row["room_name"]); ?>">
-                                    </div>
-                                    <p class="tagline"><?php echo htmlspecialchars($row["tagline"]); ?></p>
-                                    <p><?php echo htmlspecialchars($row["description"]); ?></p>
-
-                                    <div class="row g-3 my-3">
-                                        <div class="col-6 col-md-3"><p class="room-meta mb-0">Size</p><strong><?php echo htmlspecialchars($row["size_m2"]); ?> m²</strong></div>
-                                        <div class="col-6 col-md-3"><p class="room-meta mb-0">Guests</p><strong>Up to <?php echo htmlspecialchars($row["max_guests"]); ?></strong></div>
-                                        <div class="col-6 col-md-3"><p class="room-meta mb-0">Rooms</p><strong><?php echo htmlspecialchars($row["total_rooms"]); ?> available</strong></div>
-                                        <div class="col-6 col-md-3"><p class="room-meta mb-0">Price</p><strong>$<?php echo number_format($row["price"], 2); ?> / night</strong></div>
-                                    </div>
-
-                                    <p class="room-meta">In the room</p>
-                                    <ul class="amenities">
-                                        <li>Air conditioning</li>
-                                        <li>Free Wi-Fi</li>
-                                        <li>Flat-screen TV</li>
-                                        <li>Mini fridge</li>
-                                        <li>Private terrace or balcony</li>
-                                        <?php if ($row["room_type"] != "Double") { ?>
-                                            <li>Kitchen</li>
-                                        <?php } ?>
-                                        <?php if ($row["room_type"] == "Apartment") { ?>
-                                            <li>Living and dining area</li>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-lux-outline" data-bs-dismiss="modal">Close</button>
-                                    <a href="booking.php?room_id=<?php echo $roomId; ?>" class="btn btn-lux">Book this room</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    $room = $row;
+                    include "room_modal.php";
+                    ?>
                 <?php
                     }
                 } else {

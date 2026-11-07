@@ -2,6 +2,7 @@
 session_start();
 require "admin_check.php";
 require "db_connect.php";
+require "upload_photo.php";
 
 $pageTitle = "Rooms";
 $currentPage = "admin";
@@ -23,7 +24,9 @@ $image = "";
 $tagline = "";
 $description = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_id"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($_POST)) {
+    $errorMessage = "The photo is too big to upload. The largest size allowed is " . ini_get("post_max_size") . "B.";
+} elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_id"])) {
     $deleteId = (int) $_POST["delete_id"];
 
     $check = $conn->prepare("SELECT COUNT(*) AS total FROM bookings WHERE room_id = ?");
@@ -57,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_id"])) {
     $image = trim($_POST["image"]);
     $tagline = trim($_POST["tagline"]);
     $description = trim($_POST["description"]);
+    $hasUpload = isset($_FILES["photo_upload"]) && $_FILES["photo_upload"]["error"] != UPLOAD_ERR_NO_FILE;
 
     if ($roomName == "" || $price == "" || $size == "" || $maxGuests == "" || $totalRooms == "") {
         $errorMessage = "Please fill in all the required fields.";
@@ -67,6 +71,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_id"])) {
     } elseif ((int) $size < 1 || (int) $maxGuests < 1 || (int) $totalRooms < 1) {
         $errorMessage = "Size, guests and number of rooms must be at least 1.";
     } else {
+        if ($hasUpload) {
+            $upload = uploadPhoto($_FILES["photo_upload"], "room");
+
+            if ($upload[1] != "") {
+                $errorMessage = $upload[1];
+            } else {
+                $image = $upload[0];
+            }
+        }
+    }
+
+    if ($errorMessage == "") {
         $price = (float) $price;
         $size = (int) $size;
         $maxGuests = (int) $maxGuests;
@@ -155,7 +171,7 @@ include "header.php";
                     <div class="form-panel">
                         <h3 class="mb-4"><?php echo $editId > 0 ? "Edit room" : "Add a room"; ?></h3>
 
-                        <form action="admin_rooms.php" method="POST">
+                        <form action="admin_rooms.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="room_id" value="<?php echo $editId; ?>">
 
                             <div class="mb-3">
@@ -195,9 +211,13 @@ include "header.php";
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="image" class="form-label">Photo file name</label>
-                                <input type="text" class="form-control" id="image" name="image" placeholder="room-double.jpg" value="<?php echo htmlspecialchars($image); ?>">
-                                <div class="form-text">Put the photo in the images folder and type its file name here.</div>
+                                <label for="photo_upload" class="form-label">Main photo</label>
+                                <div class="photo upload-preview mb-2">
+                                    <img id="mainPreview" src="<?php echo $image != "" ? "images/" . htmlspecialchars($image) : ""; ?>" alt="">
+                                </div>
+                                <input type="file" class="form-control" id="photo_upload" name="photo_upload" accept=".jpg,.jpeg,.png,.webp" onchange="previewPhoto(this, 'mainPreview')">
+                                <div class="form-text">Choose a photo from your computer. Leave it empty to keep the current photo.</div>
+                                <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="tagline" class="form-label">Tagline</label>
@@ -243,6 +263,7 @@ include "header.php";
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="admin_rooms.php?edit=<?php echo $row["id"]; ?>" class="btn btn-sm btn-lux-outline">Edit</a>
+                                                <a href="admin_photos.php?room_id=<?php echo $row["id"]; ?>" class="btn btn-sm btn-lux-outline">Photos</a>
                                                 <form action="admin_rooms.php" method="POST">
                                                     <input type="hidden" name="delete_id" value="<?php echo $row["id"]; ?>">
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this room?')">Delete</button>

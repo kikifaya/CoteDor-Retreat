@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top site-nav " id="siteNav">
         <div class="container-fluid px-3 px-lg-5">
-            <a class="navbar-brand brand" href="index.html">
+            <a class="navbar-brand brand" href="index.php">
                 Côte d'Or
                 <span>Retreat &middot; Praslin</span>
             </a>
@@ -63,7 +64,7 @@
         <button type="button" class="menu-close" onclick="closeMenu()">Close <span>&times;</span></button>
 
         <ul class="menu-links">
-            <li><a href="index.html" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
+            <li><a href="index.php" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
             <li><a href="rooms.php" data-image="room-double.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Rooms</a></li>
             <li><a href="experiences.html" data-image="spa.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Experiences</a></li>
             <li><a href="booking.php" data-image="pool.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Book a stay</a></li>
@@ -72,8 +73,8 @@
 
         <div class="menu-info">
             <span>Anse Volbert, Praslin, Seychelles</span>
-            <span>+248 4 000 000</span>
-            <span>stay@cotedorretreat.com</span>
+            <span>+248 423 5100</span>
+            <span>cotedorretreat@seychelles.net</span>
         </div>
     </div>
 
@@ -89,11 +90,12 @@
             <div class="row g-5">
                 <div class="col-12 col-lg-4">
                     <p class="eyebrow">Find us</p>
-                    <h2 class="section-title">Côte d'Or Retreat</h2>
+                    <h2 class="section-title reveal-words">Côte d'Or Retreat</h2>
                     <ul class="distance-list">
                         <li><strong>Address</strong><span>Anse Volbert, Praslin</span></li>
-                        <li><strong>Phone</strong><span>+248 4 000 000</span></li>
-                        <li><strong>Email</strong><span>stay@cotedorretreat.com</span></li>
+                        <li><strong>Phone</strong><span>+248 423 5100</span></li>
+                        <li><strong>WhatsApp</strong><span>+248 2537 688</span></li>
+                        <li><strong>Email</strong><span>cotedorretreat@seychelles.net</span></li>
                         <li><strong>Check-in</strong><span>From 12:00</span></li>
                         <li><strong>Check-out</strong><span>Until 10:00</span></li>
                     </ul>
@@ -141,6 +143,16 @@
         </div>
     </section>
 
+    <section class="map-section">
+        <iframe src="https://www.google.com/maps?q=Anse%20Volbert%2C%20Praslin%2C%20Seychelles&amp;z=14&amp;output=embed" title="Map of Anse Volbert, Praslin" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-card">
+            <p class="eyebrow">Getting here</p>
+            <h3>Anse Volbert, Praslin</h3>
+            <p>About 3 km from the Praslin ferry jetty, and a two-minute walk from Côte d'Or Beach.</p>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Anse+Volbert+Praslin+Seychelles" class="btn btn-lux" target="_blank" rel="noopener">Get directions</a>
+        </div>
+    </section>
+
     <footer class="site-footer" id="newsletter">
         <div class="container">
             <div class="row g-5">
@@ -157,10 +169,11 @@
                 <div class="col-6 col-lg-2 offset-lg-1">
                     <h6 class="footer-heading">Explore</h6>
                     <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="rooms.php">Rooms</a></li>
                         <li><a href="experiences.html">Experiences</a></li>
                         <li><a href="booking.php">Book a stay</a></li>
+                        <li><a href="policies.html">Hotel policies</a></li>
                     </ul>
                 </div>
 
@@ -170,6 +183,7 @@
                         <li><a href="login.php">Log in</a></li>
                         <li><a href="register.php">Create account</a></li>
                         <li><a href="my_bookings.php">My bookings</a></li>
+                        <li><a href="account.php">My account</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -179,9 +193,14 @@
                     <p class="footer-text">
                         Anse Volbert, Praslin<br>
                         Seychelles<br>
-                        +248 4 000 000<br>
-                        stay@cotedorretreat.com
+                        +248 423 5100<br>
+                        WhatsApp +248 2537 688<br>
+                        cotedorretreat@seychelles.net
                     </p>
+                    <ul class="footer-social">
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+                    </ul>
                 </div>
             </div>
 

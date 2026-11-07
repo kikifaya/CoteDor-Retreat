@@ -2,6 +2,7 @@
 session_start();
 require "auth_check.php";
 require "db_connect.php";
+require "functions.php";
 
 $pageTitle = "My bookings";
 $currentPage = "my_bookings";
@@ -13,6 +14,10 @@ $userId = $_SESSION["user_id"];
 
 if (isset($_GET["message"]) && $_GET["message"] == "admin_only") {
     $errorMessage = "Sorry, that page is only for the hotel admin.";
+}
+
+if (isset($_GET["message"]) && $_GET["message"] == "new_account") {
+    $successMessage = "Your account has been created and you are now logged in. You can book your first stay.";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cancel_id"])) {
@@ -56,7 +61,10 @@ include "header.php";
 
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 my-4">
                 <p class="mb-0 text-muted">You have <?php echo $bookings->num_rows; ?> booking(s).</p>
-                <a href="booking.php" class="btn btn-lux">New booking</a>
+                <div class="d-flex gap-2">
+                    <a href="account.php" class="btn btn-lux-outline">My account</a>
+                    <a href="booking.php" class="btn btn-lux">New booking</a>
+                </div>
             </div>
 
             <?php
@@ -77,7 +85,7 @@ include "header.php";
                                     <h3 class="card-title mb-1"><?php echo htmlspecialchars($row["room_name"]); ?></h3>
                                     <span class="badge badge-status <?php echo $statusClass; ?>"><?php echo htmlspecialchars($row["status"]); ?></span>
                                 </div>
-                                <p class="room-meta mb-3">Booking #<?php echo $row["id"]; ?></p>
+                                <p class="room-meta mb-3">Ref. <?php echo bookingReference($row["id"], $row["created_at"]); ?> &middot; <a href="booking_confirmation.php?id=<?php echo $row["id"]; ?>">View confirmation</a></p>
 
                                 <div class="row g-3">
                                     <div class="col-6 col-lg-3"><p class="room-meta mb-0">Check-in</p><?php echo date("d M Y", strtotime($row["check_in"])); ?></div>

@@ -6,12 +6,12 @@ booking system. Built with HTML, CSS, JavaScript, Bootstrap 5.3.8, PHP and MySQL
 ## 1. Run it with WampServer
 
 1. Start **WampServer** and wait until its icon turns **green**.
-2. Copy the whole `cotedor` folder into `C:\wamp64\www\`, so you have `C:\wamp64\www\cotedor\index.html`.
+2. Copy the whole `cotedor` folder into `C:\wamp64\www\`, so you have `C:\wamp64\www\cotedor\index.php`.
 3. Open phpMyAdmin (left-click the Wamp icon → **phpMyAdmin**, or the address from class, e.g.
    `http://localhost/phpmyadmin5.2.3/`), log in with user `root` and an empty password.
 4. Click **Import**, choose `hotel_db.sql` from the project folder, and click **Import** (or **Go**) at the bottom.
    This creates the `hotel_db` database with all tables and sample data.
-5. Open **http://localhost/cotedor/** in your browser (this opens `index.html`).
+5. Open **http://localhost/cotedor/** in your browser (this opens `index.php`).
 
 > Open the site through `http://localhost/...`. Double-clicking a `.php` file will not work.
 
@@ -29,7 +29,7 @@ You can also create new User accounts on the **Create account** page.
 The site works without photos (it shows sand-coloured frames), but it looks its best with them.
 
 **Quick way:** double-click **`download-photos.bat`** in the project folder (internet needed). It downloads
-22 free Pexels photos and the beach video into `images` and `video` with the right names. Photos that are
+31 free Pexels photos and the beach video into `images` and `video` with the right names. Photos that are
 already in the folder are skipped, so it never replaces your own. The list of photos is in `CREDITS.md`.
 
 **Photos from the official Côte d'Or Retreat website:** open cotedorretreat.com, right-click a photo →
@@ -64,6 +64,9 @@ To change any photo later, save a new one into the `images` folder with **exactl
 | `moment-3.jpg` | Sunset over the ocean | Carousel slide 4 |
 | `vallee-de-mai.jpg` | Palm forest / coco de mer | Experiences – Explore |
 | `anse-lazio.jpg` | Beach with granite boulders (search "Anse Lazio" or "Praslin") | Experiences – Explore |
+| `room-double-2.jpg` … `-4.jpg` | Double Room: bathroom, terrace with hammock, view | Room photo gallery |
+| `room-selfcatering-2.jpg` … `-4.jpg` | Self-Catering: kitchenette, bathtub, terrace | Room photo gallery |
+| `room-apartment-2.jpg` … `-4.jpg` | Apartment: second bedroom, kitchen, balcony | Room photo gallery |
 
 Useful searches: "Seychelles", "Praslin", "La Digue", "tropical beach", "luxury hotel room", "spa".
 
@@ -73,10 +76,12 @@ If there is no video, `hero.jpg` shows instead.
 
 ## 4. Things to update
 
-- **Phone and email** (`+248 4 000 000`, `stay@cotedorretreat.com`) are placeholders. Replace them with the
   hotel's real details in `header.php` (menu) and `footer.php`, and in the three `.html` pages
   (they have their own copy of the menu and footer). Use VS Code's **Find in Files** (Ctrl + Shift + F) to change them all at once.
-- **Room prices** come from the database. Change them on the admin **Rooms** page.
+- **Room prices** come from the database.
+- **Room photos:** in the admin area, open **Rooms → Photos** for a room, click **Choose file**, pick a photo from your computer, add a caption and click **Add to gallery**. To change a room's main photo, click **Edit** and choose a new photo.
+- **Photo too big?** WampServer allows 2 MB per upload by default. To allow bigger photos: left-click the Wamp icon → **PHP** → **PHP settings** → set **upload_max_filesize** and **post_max_size** to 64M (or edit them in php.ini) and restart Wamp.
+- **Instagram and Facebook links** in the footer point to the main Instagram and Facebook pages for now. Change them to the hotel's own pages in `footer.php`, `contact.html` and `experiences.html`. Change them on the admin **Rooms** page.
 
 ## 5. Before you submit
 
@@ -98,7 +103,9 @@ server-side work: processing forms, the database, login, sessions and protected 
 | `auth_check.php` | Protects pages that need a logged-in user |
 | `admin_check.php` | Protects admin pages (Admin role only) |
 | `admin_nav.php` | The tab bar on admin pages |
-| `index.html` | Home page (plain HTML – no server-side work needed) |
+| `room_modal.php` | The room window with the photo gallery (included on the Rooms and Booking pages) |
+| `index.php` | Home page (reads the first rooms from the database) |
+| `policies.html` | Hotel policies: check-in and check-out, cancellation, rates and taxes, rooms (plain HTML) |
 | `experiences.html` | Spa, dining, pool and places to explore (plain HTML) |
 | `contact.html` | Contact form (HTML form, sent to `contact.php`) |
 | `contact.php` | Processes the contact form: saves it in the `messages` table and shows a success or error message |
@@ -107,9 +114,14 @@ server-side work: processing forms, the database, login, sessions and protected 
 | `register.php`, `login.php`, `logout.php` | Accounts, login with sessions, logout |
 | `booking.php` | Booking form (login required, POST → `bookings` table) |
 | `my_bookings.php` | A guest's own bookings, cancel a pending booking |
+| `booking_confirmation.php` | The thank-you page after booking: reference, summary, countdown, print |
+| `functions.php` | `bookingReference()`, which makes references like CDR-2026-0003 |
+| `account.php` | A guest's own details and password change |
 | `admin_dashboard.php` | Counts, progress bars, latest bookings |
 | `admin_bookings.php` | All bookings: filter, confirm, cancel, delete |
 | `admin_rooms.php` | Add, edit and delete rooms |
+| `admin_photos.php` | Upload and remove the extra gallery photos of a room |
+| `upload_photo.php` | The `uploadPhoto()` function used by the admin pages to save uploaded photos |
 | `admin_users.php` | All registered accounts |
 | `admin_messages.php` | Contact messages and newsletter subscribers |
 | `css/style.css` | All custom styles |

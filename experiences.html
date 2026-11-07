@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top site-nav " id="siteNav">
         <div class="container-fluid px-3 px-lg-5">
-            <a class="navbar-brand brand" href="index.html">
+            <a class="navbar-brand brand" href="index.php">
                 Côte d'Or
                 <span>Retreat &middot; Praslin</span>
             </a>
@@ -63,7 +64,7 @@
         <button type="button" class="menu-close" onclick="closeMenu()">Close <span>&times;</span></button>
 
         <ul class="menu-links">
-            <li><a href="index.html" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
+            <li><a href="index.php" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
             <li><a href="rooms.php" data-image="room-double.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Rooms</a></li>
             <li><a href="experiences.html" data-image="spa.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Experiences</a></li>
             <li><a href="booking.php" data-image="pool.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Book a stay</a></li>
@@ -72,8 +73,8 @@
 
         <div class="menu-info">
             <span>Anse Volbert, Praslin, Seychelles</span>
-            <span>+248 4 000 000</span>
-            <span>stay@cotedorretreat.com</span>
+            <span>+248 423 5100</span>
+            <span>cotedorretreat@seychelles.net</span>
         </div>
     </div>
 
@@ -94,14 +95,14 @@
                             <p class="caption">Treatments with island oils.</p>
                         </div>
                         <div class="col-5 pt-5">
-                            <div class="photo"><img src="images/story-2.jpg" alt="Spa details with flowers and stones"></div>
+                            <div class="photo" data-speed="0.12"><img src="images/story-2.jpg" alt="Spa details with flowers and stones"></div>
                             <p class="caption">A quiet garden pavilion.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-5 offset-lg-1">
                     <p class="eyebrow">Wellness</p>
-                    <h2 class="section-title">The <em>spa</em></h2>
+                    <h2 class="section-title reveal-words">The <em>spa</em></h2>
                     <p class="lead-text">
                         Relax with a massage, a facial or a simple foot ritual after a day in the sun.
                         Our therapists use coconut oil and local herbs, and the hairdresser is next door
@@ -112,10 +113,11 @@
         </div>
     </section>
 
-    <section class="feature-banner" id="dining" style="background-image: url('images/restaurant.jpg');">
+    <section class="feature-banner" id="dining">
+        <div class="banner-bg" data-speed="0.08" style="background-image: url('images/restaurant.jpg');"></div>
         <div class="container">
             <p class="eyebrow">Restaurant &amp; bar</p>
-            <h2>Creole kitchen</h2>
+            <h2 class="reveal-words">Creole kitchen</h2>
             <p class="mb-4">Breakfast, lunch and dinner with the catch of the day, Creole curries and international favourites. Breakfast is $22 and half board is $78 per person, per night.</p>
             <a href="booking.php" class="btn btn-lux-light">Book with meals</a>
         </div>
@@ -126,14 +128,14 @@
             <div class="row g-5 align-items-center">
                 <div class="col-12 col-lg-5">
                     <p class="eyebrow">Pool</p>
-                    <h2 class="section-title">Between the palms</h2>
+                    <h2 class="section-title reveal-words">Between the palms</h2>
                     <p class="lead-text">
                         A 5 × 12 metre pool surrounded by sun loungers, with a separate shallow pool for
                         children. Order a fresh juice from the bar and stay until the evening light.
                     </p>
                 </div>
                 <div class="col-12 col-lg-7">
-                    <div class="photo" style="aspect-ratio: 16 / 10;"><img src="images/pool.jpg" alt="The hotel swimming pool"></div>
+                    <div class="photo reveal" style="aspect-ratio: 16 / 10;"><img src="images/pool.jpg" alt="The hotel swimming pool"></div>
                 </div>
             </div>
         </div>
@@ -144,13 +146,13 @@
             <div class="row mb-5">
                 <div class="col-12 col-lg-7">
                     <p class="eyebrow">Explore Praslin</p>
-                    <h2 class="section-title">Beyond the <em>hotel</em></h2>
+                    <h2 class="section-title reveal-words">Beyond the <em>hotel</em></h2>
                 </div>
             </div>
 
             <div class="row g-4 g-lg-5">
                 <div class="col-12 col-md-4">
-                    <div class="card room-card h-100">
+                    <div class="card room-card h-100 reveal">
                         <div class="photo"><img src="images/beach.jpg" alt="Côte d'Or Beach"></div>
                         <div class="card-body">
                             <p class="room-meta">150 m away</p>
@@ -160,7 +162,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="card room-card h-100">
+                    <div class="card room-card h-100 reveal">
                         <div class="photo"><img src="images/vallee-de-mai.jpg" alt="Palm forest in the Vallée de Mai"></div>
                         <div class="card-body">
                             <p class="room-meta">6 km away</p>
@@ -170,7 +172,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="card room-card h-100">
+                    <div class="card room-card h-100 reveal">
                         <div class="photo"><img src="images/anse-lazio.jpg" alt="Anse Lazio beach"></div>
                         <div class="card-body">
                             <p class="room-meta">7 km away</p>
@@ -186,7 +188,7 @@
     <section class="cta-band">
         <div class="container">
             <p class="eyebrow">Your stay</p>
-            <h2 class="section-title">Make it yours</h2>
+            <h2 class="section-title reveal-words">Make it yours</h2>
             <a href="booking.php" class="btn btn-lux-light">Book now</a>
         </div>
     </section>
@@ -207,10 +209,11 @@
                 <div class="col-6 col-lg-2 offset-lg-1">
                     <h6 class="footer-heading">Explore</h6>
                     <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="rooms.php">Rooms</a></li>
                         <li><a href="experiences.html">Experiences</a></li>
                         <li><a href="booking.php">Book a stay</a></li>
+                        <li><a href="policies.html">Hotel policies</a></li>
                     </ul>
                 </div>
 
@@ -220,6 +223,7 @@
                         <li><a href="login.php">Log in</a></li>
                         <li><a href="register.php">Create account</a></li>
                         <li><a href="my_bookings.php">My bookings</a></li>
+                        <li><a href="account.php">My account</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -229,9 +233,14 @@
                     <p class="footer-text">
                         Anse Volbert, Praslin<br>
                         Seychelles<br>
-                        +248 4 000 000<br>
-                        stay@cotedorretreat.com
+                        +248 423 5100<br>
+                        WhatsApp +248 2537 688<br>
+                        cotedorretreat@seychelles.net
                     </p>
+                    <ul class="footer-social">
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+                    </ul>
                 </div>
             </div>
 

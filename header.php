@@ -23,12 +23,13 @@ $isAdmin = $isLoggedIn && $_SESSION["role"] == "admin";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top site-nav <?php if ($solidNav) { echo "nav-solid scrolled"; } ?>" id="siteNav">
         <div class="container-fluid px-3 px-lg-5">
-            <a class="navbar-brand brand" href="index.html">
+            <a class="navbar-brand brand" href="index.php">
                 Côte d'Or
                 <span>Retreat &middot; Praslin</span>
             </a>
@@ -92,7 +93,7 @@ $isAdmin = $isLoggedIn && $_SESSION["role"] == "admin";
         <button type="button" class="menu-close" onclick="closeMenu()">Close <span>&times;</span></button>
 
         <ul class="menu-links">
-            <li><a href="index.html" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
+            <li><a href="index.php" data-image="hero.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Home</a></li>
             <li><a href="rooms.php" data-image="room-double.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Rooms</a></li>
             <li><a href="experiences.html" data-image="spa.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Experiences</a></li>
             <li><a href="booking.php" data-image="pool.jpg" onmouseover="changeMenuBackground(this)" onmouseout="resetMenuBackground(this)">Book a stay</a></li>
@@ -101,7 +102,7 @@ $isAdmin = $isLoggedIn && $_SESSION["role"] == "admin";
 
         <div class="menu-info">
             <span>Anse Volbert, Praslin, Seychelles</span>
-            <span>+248 4 000 000</span>
-            <span>stay@cotedorretreat.com</span>
+            <span>+248 423 5100</span>
+            <span>cotedorretreat@seychelles.net</span>
         </div>
     </div>

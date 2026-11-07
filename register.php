@@ -46,10 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ssssss", $fullName, $username, $email, $phone, $hashedPassword, $role);
 
             if ($stmt->execute()) {
+                $newUserId = $stmt->insert_id;
                 $stmt->close();
                 $check->close();
                 $conn->close();
-                header("Location: login.php?message=registered");
+
+                session_regenerate_id(true);
+                $_SESSION["user_id"] = $newUserId;
+                $_SESSION["username"] = $username;
+                $_SESSION["full_name"] = $fullName;
+                $_SESSION["role"] = $role;
+
+                header("Location: my_bookings.php?message=new_account");
                 exit();
             } else {
                 $errorMessage = "Sorry, your account could not be created. Please try again.";

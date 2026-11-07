@@ -14,10 +14,11 @@
                 <div class="col-6 col-lg-2 offset-lg-1">
                     <h6 class="footer-heading">Explore</h6>
                     <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="rooms.php">Rooms</a></li>
                         <li><a href="experiences.html">Experiences</a></li>
                         <li><a href="booking.php">Book a stay</a></li>
+                        <li><a href="policies.html">Hotel policies</a></li>
                     </ul>
                 </div>
 
@@ -27,6 +28,7 @@
                         <li><a href="login.php">Log in</a></li>
                         <li><a href="register.php">Create account</a></li>
                         <li><a href="my_bookings.php">My bookings</a></li>
+                        <li><a href="account.php">My account</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -36,9 +38,14 @@
                     <p class="footer-text">
                         Anse Volbert, Praslin<br>
                         Seychelles<br>
-                        +248 4 000 000<br>
-                        stay@cotedorretreat.com
+                        +248 423 5100<br>
+                        WhatsApp +248 2537 688<br>
+                        cotedorretreat@seychelles.net
                     </p>
+                    <ul class="footer-social">
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+                    </ul>
                 </div>
             </div>
 

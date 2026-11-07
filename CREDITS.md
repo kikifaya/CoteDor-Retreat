@@ -26,4 +26,13 @@ All photos and the video are free to use under the Pexels licence (https://www.p
 | `images/moment-2.jpg` | Canopy of palm trees from above | https://www.pexels.com/photo/3030283/ |
 | `images/moment-3.jpg` | Sunset over the ocean | https://www.pexels.com/photo/30703913/ |
 | `images/vallee-de-mai.jpg` | Tropical palm forest | https://www.pexels.com/photo/15556726/ |
+| `images/room-double-2.jpg` | Luxury bathroom with a shower | https://www.pexels.com/photo/19227243/ |
+| `images/room-double-3.jpg` | Hammocks on a balcony | https://www.pexels.com/photo/7329929/ |
+| `images/room-double-4.jpg` | A patio overlooking the beach | https://www.pexels.com/photo/12498873/ |
+| `images/room-selfcatering-2.jpg` | Kitchen area in a studio apartment | https://www.pexels.com/photo/7147288/ |
+| `images/room-selfcatering-3.jpg` | Bathroom with a freestanding tub | https://www.pexels.com/photo/6207947/ |
+| `images/room-selfcatering-4.jpg` | Balcony of a hotel room | https://www.pexels.com/photo/19025564/ |
+| `images/room-apartment-2.jpg` | Hotel room with twin beds and ocean view | https://www.pexels.com/photo/29702286/ |
+| `images/room-apartment-3.jpg` | Apartment with kitchen and bedroom | https://www.pexels.com/photo/6447384/ |
+| `images/room-apartment-4.jpg` | Beachfront house with terrace | https://www.pexels.com/photo/3897529/ |
 | `video/hero.mp4` | Aerial video of a tropical shoreline with turquoise water | https://www.pexels.com/video/3089895/ |

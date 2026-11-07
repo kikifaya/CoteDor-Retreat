@@ -2,6 +2,7 @@
 session_start();
 require "admin_check.php";
 require "db_connect.php";
+require "functions.php";
 
 $pageTitle = "Bookings";
 $currentPage = "admin";
@@ -89,7 +90,7 @@ include "header.php";
                 <table class="table table-lux mb-0">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Ref.</th>
                             <th>Guest</th>
                             <th>Room</th>
                             <th>Check-in</th>
@@ -107,7 +108,7 @@ include "header.php";
                             while ($row = $bookings->fetch_assoc()) {
                         ?>
                             <tr>
-                                <td><?php echo $row["id"]; ?></td>
+                                <td><a href="booking_confirmation.php?id=<?php echo $row["id"]; ?>"><?php echo bookingReference($row["id"], $row["created_at"]); ?></a></td>
                                 <td>
                                     <?php echo htmlspecialchars($row["full_name"]); ?><br>
                                     <small class="text-muted"><?php echo htmlspecialchars($row["email"]); ?> &middot; <?php echo htmlspecialchars($row["phone"]); ?></small>

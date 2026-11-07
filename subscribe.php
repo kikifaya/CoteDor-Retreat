@@ -3,7 +3,7 @@ session_start();
 require "db_connect.php";
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: index.html");
+    header("Location: index.php");
     exit();
 }
 
@@ -62,7 +62,7 @@ include "header.php";
                         }
                         ?>
                         <div class="d-flex flex-wrap gap-2 mt-4">
-                            <a href="index.html" class="btn btn-lux">Back to home</a>
+                            <a href="index.php" class="btn btn-lux">Back to home</a>
                             <a href="rooms.php" class="btn btn-lux-outline">See the rooms</a>
                         </div>
                     </div>
